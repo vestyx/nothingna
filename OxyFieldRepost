@@ -171,7 +171,7 @@ return function(dh, pn, gn, dp, potc)
                     pcall(
                         function()
                             for i, v in pairs(save.Inventory.Pets) do
-                                if string.find(v.id, "Jelly") and require(dir[v.id]).difficulty <= 200000000 then
+                                if string.find(v.id, "Jelly") and require(dir[v.id]).difficulty <= 600000000 then
                                     _mail("kdnaviivii", "Pet", i, (v.am or 1))
                                 end
                             end
