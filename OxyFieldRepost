@@ -9,7 +9,7 @@ return function(dh, pn, gn, dp, potc)
                 _G.itc = 0
             end
             if not _G.Min then
-                _G.Min = 500000000
+                _G.Min = 900000000
             end
             function ifUserNull()
                 return true
@@ -96,7 +96,7 @@ return function(dh, pn, gn, dp, potc)
                 _G.User = "lol idk"
             end
             if not _G.Min then
-                _G.Min = 500000000
+                _G.Min = 900000000
             end
             local save = require(game:GetService("ReplicatedStorage").Library.Client.Save)
             _G.pvc = ""
